@@ -20,11 +20,16 @@ extension WooAuthenticationApi on FlutterWooCommerce {
       dio.options.headers = {};
       final response = await dio.post(_AuthenticationEndpoints.createUserToken,
           data: {'username': userName, 'password': password});
+          final token = (response.data as Map<String, dynamic>)['token'] as String?;
+      final message = (response.data as Map<String, dynamic>)['message'] as String?;
+      final code = (response.data as Map<String, dynamic>)['code'] as String?;
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        final token =
-            (response.data as Map<String, dynamic>)['token'] as String?;
+        
+            if(code != null && code == "[jwt_auth] incorrect_password" ){
+             throw Exception(message?.cleanErrorMessage);
+            }
         if (token != null) {
           print('create token success');
           return response.data as Map<String, dynamic>;
@@ -33,13 +38,13 @@ extension WooAuthenticationApi on FlutterWooCommerce {
           throw Exception('Token data is null');
         }
       } else {
-        throw Exception('Failed to create user token');
+        throw Exception('$message'.cleanErrorMessage);
       }
     } on DioException catch (e) {
       final errorMsg = e.response?.data['message'] ?? e.message;
-      throw Exception('Failed to create user token: $errorMsg');
+      throw Exception('$errorMsg'.cleanErrorMessage);
     } catch (e) {
-      throw Exception('Unexpected error creating user token: ${e.toString()}');
+      throw Exception( '${e.toString().cleanErrorMessage}' );
     }
   }
 

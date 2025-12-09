@@ -3,15 +3,15 @@ import 'package:woocommerce_flutter_api/woocommerce_flutter_api.dart';
 void main() async {
   final flutterWoocommerce = FlutterWooCommerce(
     baseUrl: 'https://www.ehabcenter.com',
-    username: 'ck_f31729fea77d9b670ecd8b9234546ffb26e40384',
-    password: 'cs_bfa30e786fcc69f6fda0cf66cdfeacc398728cd9',
+    username: 'ck_132bffb30f3f7b2e594cd05c09eb1c697bed8e0c',
+    password: 'cs_8ae6921152e19603937fc5dd209bbbc699a7bc6c',
     lang: "ar",
     useFaker: false,
   );
 
   // WooCustomer customer = WooCustomer(
-  //   email: "srag.sabry5qq0@gmail.com",
-  //   firstName: "seraqqg",
+  //   email: "srag.sabry@gmail.com",
+  //   firstName: "seraqq",
   //   lastName: "sakqqr",
   //   role: 'customer',
   //   username: "seragSaqqkr50",
@@ -24,21 +24,25 @@ void main() async {
   // } catch (e) {
   //   print(e.toString().cleanErrorMessage);
   // }
-  // return;
-  // final data = await flutterWoocommerce.createUserToken(
-  //     userName: "srag.sabry@gmail.com", password: "Srag123");
-  // print(data["token"].toString());
-  // final token = data["token"];
-  // final userEmail = data["user_email"];
-  // final verifyToken = await flutterWoocommerce.verifyUserToken(token: token);
-  // if (verifyToken) {
-  //   final userId = await flutterWoocommerce.getUserInfo(userEmail);
-  //   print(userId.toString());
-  // }
+  // // return;
+  try {
+    final data = await flutterWoocommerce.createUserToken(userName: "srag.sabry@gmail.com", password: "Srag123");
+    print(data["token"].toString());
+    final token = data["token"];
+    final userEmail = data["user_email"];
+    final verifyToken = await flutterWoocommerce.verifyUserToken(token: token);
+    if (verifyToken) {
+      final userId = await flutterWoocommerce.getUserInfo(userEmail);
+      print(userId.toString());
+    }
+  } catch (e) {
+    print(e.toString().cleanErrorMessage);
+  }
+
   // Method 1: Using the enhanced getProducts method (now handles complete search terms)
-  final products =
-      await flutterWoocommerce.getOrders(status: [WooOrderStatus.underReview]);
-  print("Found ${products.length} products using enhanced getOrders method");
+  // final products =
+  //     await flutterWoocommerce.getOrders(status: [WooOrderStatus.underReview]);
+  // print("Found ${products.length} products using enhanced getOrders method");
 
   // Method 2: Using the new dedicated search method for complete terms
   // final productsByCompleteTerm =
