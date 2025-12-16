@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:woocommerce_flutter_api/woocommerce_flutter_api.dart';
-import 'package:woocommerce_flutter_api/src/extensions/string_extensions.dart';
 
 part 'endpoints.dart';
 
@@ -20,16 +19,16 @@ extension WooAuthenticationApi on FlutterWooCommerce {
       dio.options.headers = {};
       final response = await dio.post(_AuthenticationEndpoints.createUserToken,
           data: {'username': userName, 'password': password});
-          final token = (response.data as Map<String, dynamic>)['token'] as String?;
-      final message = (response.data as Map<String, dynamic>)['message'] as String?;
+      final token = (response.data as Map<String, dynamic>)['token'] as String?;
+      final message =
+          (response.data as Map<String, dynamic>)['message'] as String?;
       final code = (response.data as Map<String, dynamic>)['code'] as String?;
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        
-            if(code != null && code == "[jwt_auth] incorrect_password" ){
-             throw Exception(message?.cleanErrorMessage);
-            }
+        if (code != null && code == "[jwt_auth] incorrect_password") {
+          throw Exception(message?.cleanErrorMessage);
+        }
         if (token != null) {
           print('create token success');
           return response.data as Map<String, dynamic>;
@@ -44,7 +43,7 @@ extension WooAuthenticationApi on FlutterWooCommerce {
       final errorMsg = e.response?.data['message'] ?? e.message;
       throw Exception('$errorMsg'.cleanErrorMessage);
     } catch (e) {
-      throw Exception( '${e.toString().cleanErrorMessage}' );
+      throw Exception(e.toString().cleanErrorMessage);
     }
   }
 
@@ -189,7 +188,7 @@ extension WooAuthenticationApi on FlutterWooCommerce {
     };
     try {
       final response = await dio.post(
-        _AuthenticationEndpoints.customers + "/" + "${userId}",
+        "${_AuthenticationEndpoints.customers}/$userId",
         data: userData,
       );
       final responseData = response.data;
@@ -280,5 +279,25 @@ extension WooAuthenticationApi on FlutterWooCommerce {
     }
   }
 
-  //TODO:: logout
+  //TODO:: delete account
+  Future<bool> deleteAccount(int userId) async {
+    try {
+      final response = await dio.delete(
+        "${_AuthenticationEndpoints.customers}/$userId/?force=true",
+      );
+
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        return true;
+      } else {
+        throw Exception('Failed to delete account');
+      }
+    } on DioException catch (e) {
+      final errorMsg = e.response?.data['message'] ?? e.message;
+      throw Exception('Failed to delete account: $errorMsg');
+    } catch (e) {
+      throw Exception('Unexpected error deleting account: ${e.toString()}');
+    }
+  }
 }

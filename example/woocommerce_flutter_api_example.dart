@@ -10,11 +10,11 @@ void main() async {
   );
 
   // WooCustomer customer = WooCustomer(
-  //   email: "srag.sabry@gmail.com",
-  //   firstName: "seraqq",
-  //   lastName: "sakqqr",
+  //   email: "srag11@gmail.com",
+  //   firstName: "seraqq3",
+  //   lastName: "sakqqr4",
   //   role: 'customer',
-  //   username: "seragSaqqkr50",
+  //   username: "seragSaqqkr505",
   //   password: "Srag12qq3",
   // );
 
@@ -24,9 +24,12 @@ void main() async {
   // } catch (e) {
   //   print(e.toString().cleanErrorMessage);
   // }
-  // // return;
+  // return;
   try {
-    final data = await flutterWoocommerce.createUserToken(userName: "srag.sabry@gmail.com", password: "Srag123");
+    final data = await flutterWoocommerce.createUserToken(
+      userName: "srag11@gmail.com",
+      password: "Srag12qq3",
+    );
     print(data["token"].toString());
     final token = data["token"];
     final userEmail = data["user_email"];
@@ -38,31 +41,13 @@ void main() async {
   } catch (e) {
     print(e.toString().cleanErrorMessage);
   }
-
-  // Method 1: Using the enhanced getProducts method (now handles complete search terms)
-  // final products =
-  //     await flutterWoocommerce.getOrders(status: [WooOrderStatus.underReview]);
-  // print("Found ${products.length} products using enhanced getOrders method");
-
-  // Method 2: Using the new dedicated search method for complete terms
-  // final productsByCompleteTerm =
-  //     await flutterWoocommerce.searchProductsByCompleteTerm(
-  //   searchTerm: "غساله بيكو",
-  //   orderBy: WooSortOrderBy.title, // Better for search results
-  // );
-  // print(
-  //     "Found ${productsByCompleteTerm.length} products using searchProductsByCompleteTerm method");
-
-  // var user = await flutterWoocommerce.getUserInfo("srag.sabry@gmail.com");
-  // await Future.delayed(Duration(seconds: 1));
-  // user?.firstName = "Serag ";
-  // user?.password = "Srag123";
-
-  // var newUser = await flutterWoocommerce.updateCustomer(user!);
-  // var order = await flutterWoocommerce.getOrder(id: 425731);
-
-  // dPrint(order.status?.name.toString() ?? '');
-
-  // order.status = WooOrderStatus.underReview;
-  // await flutterWoocommerce.updateOrder(order: order);
+    return;
+//delete account
+  try {
+    final res = await flutterWoocommerce.deleteAccount(68330);
+    print(res.toString());
+  } catch (e) {
+    print(e.toString().cleanErrorMessage);
+  }
+  return;
 }
