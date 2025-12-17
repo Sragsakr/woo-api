@@ -9,22 +9,22 @@ void main() async {
     useFaker: false,
   );
 
-  // WooCustomer customer = WooCustomer(
-  //   email: "srag11@gmail.com",
-  //   firstName: "seraqq3",
-  //   lastName: "sakqqr4",
-  //   role: 'customer',
-  //   username: "seragSaqqkr505",
-  //   password: "Srag12qq3",
-  // );
+  WooCustomer customer = WooCustomer(
+    email: "ehabTest@ehab.com",
+    firstName: "ehab",
+    lastName: "center",
+    role: 'customer',
+    username: "ehabcenterTest",
+    password: "111222",
+  );
 
-  // try {
-  //   final res = await flutterWoocommerce.register(customer);
-  //   print(res.toString());
-  // } catch (e) {
-  //   print(e.toString().cleanErrorMessage);
-  // }
-  // return;
+  try {
+    final res = await flutterWoocommerce.register(customer);
+    print(res.toString());
+  } catch (e) {
+    print(e.toString().cleanErrorMessage);
+  }
+  return;
   try {
     final data = await flutterWoocommerce.createUserToken(
       userName: "srag11@gmail.com",
@@ -41,7 +41,7 @@ void main() async {
   } catch (e) {
     print(e.toString().cleanErrorMessage);
   }
-    return;
+  return;
 //delete account
   try {
     final res = await flutterWoocommerce.deleteAccount(68330);
