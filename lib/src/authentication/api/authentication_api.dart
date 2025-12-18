@@ -6,7 +6,7 @@ import 'package:woocommerce_flutter_api/woocommerce_flutter_api.dart';
 
 part 'endpoints.dart';
 
-final jwtApi = 'https://www.ehabcenter.com/wp-json/';
+final jwtApi = 'https://ehabcenter.com/wp-json/';
 
 extension WooAuthenticationApi on FlutterWooCommerce {
   //logIn
