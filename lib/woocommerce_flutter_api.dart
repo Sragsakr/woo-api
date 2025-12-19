@@ -15,6 +15,10 @@ export 'src/cart/models/models.dart';
 export 'src/category/api/category_api.dart';
 export 'src/category/enums/enums.dart';
 export 'src/category/models/models.dart';
+// coupons
+export 'src/coupon/api/coupon_api.dart';
+export 'src/coupon/enums/enums.dart';
+export 'src/coupon/models/models.dart';
 // TODO: Export any libraries intended for clients of this package.
 // products
 export 'src/extensions/string_extensions.dart';

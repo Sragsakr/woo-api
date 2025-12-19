@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:woocommerce_flutter_api/woocommerce_flutter_api.dart';
 
 void main() async {
@@ -8,46 +10,33 @@ void main() async {
     lang: "ar",
     useFaker: false,
   );
-
-  // WooCustomer customer = WooCustomer(
-  //   email: "ehabTest@ehab.com",
-  //   firstName: "ehab",
-  //   lastName: "center",
-  //   role: 'customer',
-  //   username: "ehabcenterTest",
-  //   password: "111222",
-  // );
-
-  // try {
-  //   final res = await flutterWoocommerce.register(customer);
-  //   print(res.toString());
-  // } catch (e) {
-  //   print(e.toString().cleanErrorMessage);
-  // }
-  // return;
+ 
+ /// get coupon by code
+ final coupon = await flutterWoocommerce.getCoupons(code: "oct-elaraby-8000");
+ print(coupon.toString());
+return;
   try {
-    final data = await flutterWoocommerce.createUserToken(
-      userName: "ehabTest@ehab.com",
-      password: "111222",
+    WooOrder order = WooOrder(
+      lineItems: [
+        WooLineItem(
+          productId: 24305,
+          quantity: 1,
+          total: "3519",
+        )
+      ],
+      status: WooOrderStatus.onHold,
+      couponLines: [
+        WooOrderCouponLine(
+          id: Random().nextInt(1000000),
+          code: "oct-elaraby-8000",
+          discount: 8000.00,
+        )
+      ],
+      total: "3519",
     );
-    print(data["token"].toString());
-    final token = data["token"];
-    final userEmail = data["user_email"];
-    final verifyToken = await flutterWoocommerce.verifyUserToken(token: token);
-    if (verifyToken) {
-      final userId = await flutterWoocommerce.getUserInfo(userEmail);
-      print(userId.toString());
-    }
-  } catch (e) {
-    print(e.toString().cleanErrorMessage);
-  }
-  return;
-//delete account
-  try {
-    final res = await flutterWoocommerce.deleteAccount(68330);
+    final res = await flutterWoocommerce.createOrder(order: order);
     print(res.toString());
   } catch (e) {
     print(e.toString().cleanErrorMessage);
   }
-  return;
 }

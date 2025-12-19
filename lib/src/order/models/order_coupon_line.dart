@@ -38,8 +38,8 @@ class WooOrderCouponLine {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['code'] = code;
-    data['discount'] = discount;
-    data['discount_tax'] = discountTax;
+    data['discount'] = discount.toString();
+    data['discount_tax'] = discountTax.toString();
     data['meta_data'] = metaData.map((v) => v.toJson()).toList();
     return data;
   }
