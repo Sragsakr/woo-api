@@ -248,19 +248,20 @@ extension WooOrderApi on FlutterWooCommerce {
         _OrderEndpoints.orders,
         data: order.toJson(),
       );
+       final message =
+          (response.data as Map<String, dynamic>)['message'] as String?;
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return WooOrder.fromJson(response.data as Map<String, dynamic>);
       } else {
-        throw Exception("API call failed with status code: " +
-            response.statusCode.toString());
+          throw Exception(message?.cleanErrorMessage);
       }
     } on DioException catch (e) {
-      final errorMsg = e.response?.data["message"] ?? e.message;
-      throw Exception("API call failed: " + errorMsg);
+      final errorMsg = e.response?.data['message'] ?? e.message;
+      throw Exception('$errorMsg'.cleanErrorMessage);
     } catch (e) {
-      throw Exception("Unexpected error in API call: " + e.toString());
+       throw Exception(e.toString().cleanErrorMessage);
     }
   }
 
@@ -277,19 +278,21 @@ extension WooOrderApi on FlutterWooCommerce {
         _OrderEndpoints.singleOrder(order.id!),
         data: order.toJson(),
       );
+       final message =
+          (response.data as Map<String, dynamic>)['message'] as String?;
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return WooOrder.fromJson(response.data as Map<String, dynamic>);
       } else {
-        throw Exception("API call failed with status code: " +
-            response.statusCode.toString());
+                 throw Exception(message?.cleanErrorMessage);
+
       }
     } on DioException catch (e) {
-      final errorMsg = e.response?.data["message"] ?? e.message;
-      throw Exception("API call failed: " + errorMsg);
+        final errorMsg = e.response?.data['message'] ?? e.message;
+      throw Exception('$errorMsg'.cleanErrorMessage);
     } catch (e) {
-      throw Exception("Unexpected error in API call: " + e.toString());
+      throw Exception(e.toString().cleanErrorMessage);
     }
   }
 
