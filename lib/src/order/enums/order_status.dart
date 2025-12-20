@@ -10,6 +10,7 @@ enum WooOrderStatus {
   refunded,
   failed,
   trash,
+  draft,
   underReview;
 
   static WooOrderStatus fake() {
@@ -17,6 +18,9 @@ enum WooOrderStatus {
   }
 
   static WooOrderStatus fromString(String type) {
+    if (type == 'auto-draft') {
+      return WooOrderStatus.draft;
+    }
     if (type == 'under-review') {
       return WooOrderStatus.underReview;
     }
@@ -62,6 +66,8 @@ enum WooOrderStatus {
     switch (s) {
       case WooOrderStatus.any:
         return 'any';
+      case WooOrderStatus.draft:
+        return 'auto-draft';
       case WooOrderStatus.pending:
         return 'pending';
       case WooOrderStatus.processing:

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:woocommerce_flutter_api/woocommerce_flutter_api.dart';
 
 void main() async {
@@ -10,8 +8,8 @@ void main() async {
     lang: "ar",
     useFaker: false,
   );
- 
- /// get coupon by code
+
+  /// get coupon by code
 //  final coupon = await flutterWoocommerce.getCoupons(code: "srag17");
 //  print(coupon.toString());
 // return;
@@ -24,13 +22,13 @@ void main() async {
           total: "3519",
         )
       ],
-      status: WooOrderStatus.onHold,
+      status: WooOrderStatus.draft,
       couponLines: [
-        WooOrderCouponLine(
-          // id: 454994,
-          code: "sragss17",
-          // discount: 10.0,
-        )
+        // WooOrderCouponLine(
+        //   // id: 454994,
+        //   code: "sragss17",
+        //   // discount: 10.0,
+        // )
       ],
       total: "3519",
     );
