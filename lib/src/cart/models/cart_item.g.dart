@@ -22,6 +22,7 @@ WooCartItem _$WooCartItemFromJson(Map<String, dynamic> json) => WooCartItem(
           ?.map((e) => (e as num).toInt())
           .toList(),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      userSalePrice: json['user_sale_price'] as bool?,
     );
 
 Map<String, dynamic> _$WooCartItemToJson(WooCartItem instance) =>
@@ -37,4 +38,5 @@ Map<String, dynamic> _$WooCartItemToJson(WooCartItem instance) =>
       'line_price': instance.linePrice,
       'variation': instance.variations,
       'tags': instance.tags,
+      'user_sale_price': instance.userSalePrice,
     };

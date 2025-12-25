@@ -49,6 +49,9 @@ class WooCartItem {
   @JsonKey(name: 'tags')
   List<String>? tags;
 
+  @JsonKey(name: 'user_sale_price')
+  bool? userSalePrice;
+
   WooCartItem({
     this.key,
     this.id,
@@ -61,6 +64,7 @@ class WooCartItem {
     this.linePrice,
     this.variations,
     this.tags,
+    this.userSalePrice,
   });
 
   factory WooCartItem.fromJson(Map<String, dynamic> json) =>
@@ -81,6 +85,7 @@ class WooCartItem {
       linePrice: FakeHelper.decimal(),
       variations: FakeHelper.listOfIntegers(),
       tags: List.generate(3, (index) => FakeHelper.word()),
+      userSalePrice: FakeHelper.boolean(),
     );
   }
 }
