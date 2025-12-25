@@ -375,4 +375,58 @@ extension WooProductApi on FlutterWooCommerce {
 
     return map;
   }
+
+  /// Fetches all product tags from WooCommerce
+  /// Returns a list of maps containing tag data
+  Future<List<Map<String, dynamic>>> getProductTags({
+    int page = 1,
+    int perPage = 100,
+    String? search,
+    List<int>? exclude,
+    List<int>? include,
+    int? offset,
+    WooSortOrder order = WooSortOrder.asc,
+    String orderBy = 'name',
+    bool? hideEmpty,
+    int? product,
+    String? slug,
+  }) async {
+    try {
+      final queryParameters = <String, dynamic>{
+        'page': page,
+        'per_page': perPage,
+        'order': order.name,
+        'orderby': orderBy,
+      };
+
+      if (search != null) queryParameters['search'] = search;
+      if (exclude != null) queryParameters['exclude'] = exclude.join(',');
+      if (include != null) queryParameters['include'] = include.join(',');
+      if (offset != null) queryParameters['offset'] = offset;
+      if (hideEmpty != null) queryParameters['hide_empty'] = hideEmpty;
+      if (product != null) queryParameters['product'] = product;
+      if (slug != null) queryParameters['slug'] = slug;
+
+      final response = await dio.get(
+        _ProductEndpoints.productTags,
+        queryParameters: queryParameters,
+      );
+
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        return (response.data as List)
+            .map((item) => item as Map<String, dynamic>)
+            .toList();
+      } else {
+        throw Exception(
+            "API call failed with status code: ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      final errorMsg = e.response?.data["message"] ?? e.message;
+      throw Exception("API call failed: " + errorMsg);
+    } catch (e) {
+      throw Exception("Unexpected error in API call: $e");
+    }
+  }
 }

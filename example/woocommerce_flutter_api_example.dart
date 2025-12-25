@@ -10,31 +10,36 @@ void main() async {
   );
 
   /// get coupon by code
-//  final coupon = await flutterWoocommerce.getCoupons(code: "srag17");
+ final products = await flutterWoocommerce.getProducts(page: 1, perPage: 100,tag: "4482");
 //  print(coupon.toString());
 // return;
-  try {
-    WooOrder order = WooOrder(
-      lineItems: [
-        WooLineItem(
-          productId: 24305,
-          quantity: 1,
-          total: "3519",
-        )
-      ],
-      status: WooOrderStatus.draft,
-      couponLines: [
-        // WooOrderCouponLine(
-        //   // id: 454994,
-        //   code: "sragss17",
-        //   // discount: 10.0,
-        // )
-      ],
-      total: "3519",
-    );
-    final res = await flutterWoocommerce.createOrder(order: order);
-    print(res.toString());
-  } catch (e) {
-    print(e.toString().cleanErrorMessage);
-  }
+  // try {
+  //   WooOrder order = WooOrder(
+  //     lineItems: [
+  //       WooLineItem(
+  //         productId: 24305,
+  //         quantity: 1,
+  //         total: "4000",
+  //       ),
+  //       WooLineItem(
+  //         productId: 24306,
+  //         quantity: 1,
+  //         total: "4500",
+  //       )
+  //     ],
+  //     status: WooOrderStatus.draft,
+  //     couponLines: [
+  //       // WooOrderCouponLine(
+  //       //   // id: 454994,
+  //       //   code: "sragss17",
+  //       //   // discount: 10.0,
+  //       // )
+  //     ],
+  //     // total: "4000",
+  //   );
+  //   final res = await flutterWoocommerce.createOrder(order: order);
+  //   print(res.toString());
+  // } catch (e) {
+  //   print(e.toString().cleanErrorMessage);
+  // }
 }
