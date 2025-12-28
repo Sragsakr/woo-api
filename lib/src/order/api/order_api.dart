@@ -310,9 +310,10 @@ extension WooOrderApi on FlutterWooCommerce {
 
     try {
       final response = await dio.delete(
-        _OrderEndpoints.orders,
+        _OrderEndpoints.singleOrder(id),
         queryParameters: {
           'force': force,
+
         },
       );
       if (response.statusCode != null &&

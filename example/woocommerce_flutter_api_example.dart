@@ -10,7 +10,7 @@ void main() async {
   );
 
   /// get coupon by code
- final products = await flutterWoocommerce.getProducts(page: 1, perPage: 100,tag: "4482");
+ final order = await flutterWoocommerce.deleteOrder(id: 492590);
 //  print(coupon.toString());
 // return;
   // try {
